@@ -7,30 +7,29 @@ import java.util.Objects;
 public class Reactor {
     private final String name;
     private final String country;
-    private final ReactorType reactor_type;
+    private final ReactorType reactorType;
     private final String owner;
     private final String operator;
     private final String status;
-    private final Integer thermal_capacity;
-    private final Map<Integer, Double> load_factors;
+    private final Integer thermalCapacity;
+    private final Map<Integer, Double> loadFactors;
     private final Integer firstGridConnection;
-    private final Integer suspended_date;
+    private final Integer suspendedDate;
     private final Integer permanentShutdownDate;
 
-    public Reactor(String name, String country, ReactorType reactor_type, String owner, String operator, String status, Integer thermal_capacity, Integer firstGridConnection, Integer suspended_date, Integer permanentShutdownDate) {
+    public Reactor(String name, String country, ReactorType reactorType, String owner, String operator, String status, Integer thermalCapacity, Integer firstGridConnection, Integer suspendedDate, Integer permanentShutdownDate) {
         this.name = name;
         this.country = country;
-        this.reactor_type = reactor_type;
+        this.reactorType = reactorType;
         this.owner = owner;
         this.operator = operator;
         this.status = status;
-        this.thermal_capacity = thermal_capacity;
-        this.load_factors = new HashMap<>();
+        this.thermalCapacity = thermalCapacity;
+        this.loadFactors = new HashMap<>();
         this.firstGridConnection = firstGridConnection;
-        this.suspended_date = suspended_date;
+        this.suspendedDate = suspendedDate;
         this.permanentShutdownDate = permanentShutdownDate;
     }
-
     public String getName() {
         return name;
     }
@@ -38,7 +37,7 @@ public class Reactor {
         return country;
     }
     public ReactorType getReactorType() {
-        return reactor_type;
+        return reactorType;
     }
     public String getOwner() {
         return owner;
@@ -50,34 +49,33 @@ public class Reactor {
         return status;
     }
     public Integer getThermalCapacity() {
-        return thermal_capacity;
+        return thermalCapacity;
     }
 
-    public void addLoadFactor(Integer year, Double load_factor) {
+    public void addLoadFactor(Integer year, Double loadFactor) {
         if (Objects.equals(year, this.getFirstGridConnection())) {
-            load_factor *= 3;
+            loadFactor *= 3;
         }
-        load_factors.put(year, load_factor);
+        loadFactors.put(year, loadFactor);
     }
 
     public void fixLoadFactors() {
-        for (Integer year : load_factors.keySet()) {
+        for (Integer year : loadFactors.keySet()) {
             if ((year >= this.getSuspendedDate() && this.getSuspendedDate() != 0) || (year >= this.getPermanentShutdownDate() && this.getPermanentShutdownDate() != 0)) {
-                load_factors.put(year, 0.0);
-            } else if (load_factors.get(year) == 0 && year > this.getFirstGridConnection()) {
-                load_factors.put(year, 85.0);
+                loadFactors.put(year, 0.0);
+            } else if (loadFactors.get(year) == 0 && year > this.getFirstGridConnection()) {
+                loadFactors.put(year, 85.0);
             }
         }
     }
-
     public Map<Integer, Double> getLoadFactors() {
-        return new HashMap<>(load_factors);
+        return new HashMap<>(loadFactors);
     }
     public Integer getFirstGridConnection() {
         return firstGridConnection;
     }
     public Integer getSuspendedDate() {
-        return suspended_date;
+        return suspendedDate;
     }
     public Integer getPermanentShutdownDate() {
         return permanentShutdownDate;

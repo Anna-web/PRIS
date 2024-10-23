@@ -76,7 +76,6 @@ public class ConsumptionCalculationsGUI extends JDialog {
 
     private void addListeners() {
         addCalculateListeners();
-
         exportToExcelButton.addActionListener(e -> {
             if (currentCountryData != null && currentOperatorData != null && currentRegionData != null) {
                 ExcelWriter writer = new ExcelWriter();
@@ -90,7 +89,6 @@ public class ConsumptionCalculationsGUI extends JDialog {
                 JOptionPane.showMessageDialog(this, "No export data", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -138,7 +136,6 @@ public class ConsumptionCalculationsGUI extends JDialog {
     private void updateTable(Map<String, Map<Integer, Double>> data, String header) {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{header, "Consumption", "Year"});
-
         data.forEach((group, consumptionByYear) -> {
             consumptionByYear.keySet().stream().sorted().forEach(year -> {
                 Double consumption = consumptionByYear.get(year);

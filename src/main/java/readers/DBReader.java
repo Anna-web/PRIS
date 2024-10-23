@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DBReader {
-
     public static Map<String, List<Reactor>> importReactors(File file) throws SQLException {
         String DB_URL = "jdbc:sqlite:" + file.getAbsolutePath();
         ReactorManager typesOwner = new ReactorManager();
@@ -42,10 +41,8 @@ public class DBReader {
                                     Integer firstGridConnection = reactorRs.getInt("firstGridConnection");
                                     Integer suspendedDate = reactorRs.getInt("suspendedDate");
                                     Integer permanentShutdownDate = reactorRs.getInt("permanentShutdownDate");
-
                                     Reactor reactor = new Reactor(name, country, reactorType, owner, operator, status,
                                             thermalCapacity, firstGridConnection, suspendedDate, permanentShutdownDate);
-
                                     operatorReactors.add(reactor);
                                 }
                             }
@@ -53,11 +50,9 @@ public class DBReader {
                         reactorsByOperator.put(operator, operatorReactors);
                     }
                 }
-
                 String loadFactorQuery = "SELECT * FROM load_factors";
                 try (Statement stmt = conn.createStatement();
                      ResultSet rs = stmt.executeQuery(loadFactorQuery)) {
-
                     while (rs.next()) {
                         String name = rs.getString("name");
                         Integer year = rs.getInt("year");
@@ -71,24 +66,19 @@ public class DBReader {
                     }
                 }
             }
-
             reactorsByOperator.values().stream()
                     .flatMap(List::stream)
                     .forEach(Reactor::fixLoadFactors);
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new SQLException(e);
         }
-
         return reactorsByOperator;
     }
-
 
     public static Regions importRegions(File file) throws SQLException {
         Regions regions = new Regions();
         String DB_URL = "jdbc:sqlite:" + file.getAbsolutePath();
-
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             if (conn != null) {
                 String regionsQuery = "SELECT * FROM countries";
@@ -105,7 +95,6 @@ public class DBReader {
             System.out.println(e.getMessage());
             throw new SQLException(e);
         }
-
         return regions;
     }
 }

@@ -10,6 +10,7 @@ public class Regions {
     public Regions() {
         regions = new HashMap<>();
     }
+
     public void addCountry(String region, String country) {
         if (!regions.containsKey(region)) {
             List<String> countryList = new ArrayList<>();
@@ -19,6 +20,7 @@ public class Regions {
             regions.get(region).add(country);
         }
     }
+
     public String getRegion(String country) {
         for (String region : regions.keySet()) {
             if (regions.get(region).contains(country)) {

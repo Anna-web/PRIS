@@ -10,6 +10,7 @@ public class ReactorManager {
     public ReactorManager() {
         this.reactorsMap = new HashMap<>();
         ReactorTypeReader reactorImporter = new ReactorTypeReader();
+
         try (InputStream inputStream = getClass().getResourceAsStream("/ReactorType.json")) {
             if (inputStream == null) {
                 System.out.println("Файл ReactorType.json не найден внутри JAR");

@@ -40,6 +40,7 @@ public class ConsumptionCalculator {
 
     private Map<String, Map<Integer, Double>> calculateConsumption(Function<Reactor, String> keyExtractor) {
         Map<String, Map<Integer, Double>> consumption = new HashMap<>();
+
         for (List<Reactor> reactorList : reactors.values()) {
             for (Reactor reactor : reactorList) {
                 String key = keyExtractor.apply(reactor);

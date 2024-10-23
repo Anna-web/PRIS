@@ -16,14 +16,14 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class ExcelWriter {
-    public void writeToExcel(Map<String, Map<Integer, Double>> countryData, Map<String, Map<Integer,
-                            Double>> operatorData, Map<String, Map<Integer, Double>> regionData) throws IOException {
+    public void writeToExcel(Map<String, Map<Integer, Double>> countryData,
+                             Map<String, Map<Integer, Double>> operatorData,
+                             Map<String, Map<Integer, Double>> regionData) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         createSheet(workbook, countryData, "Страна");
         createSheet(workbook, operatorData, "Оператор");
         createSheet(workbook, regionData, "Регион");
         Path outputDir = Paths.get("output");
-
         if (Files.notExists(outputDir)) {
             Files.createDirectories(outputDir);
         }

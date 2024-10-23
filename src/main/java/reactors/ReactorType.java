@@ -1,48 +1,50 @@
 package reactors;
 
 public class ReactorType {
-    private final String reactor_class;
-    private final Double burnup;
-    private final Double electrical_capacity;
+    private final String reactorClass;
+    private final Double burn_up;
+    private final Double electricalCapacity;
     private final Double enrichment;
-    private final Double first_load;
+    private final Double firstLoad;
     private final Double efficiency_factor;
-    private final Integer life_time;
-    private final Double heat_capacity;
+    private final Integer lifeTime;
+    private final Double heatCapacity;
     private final String source;
 
     public ReactorType(
-            String type, String reactor_class, Double burnup, Double efficiency_factor,
-            Double enrichment, Double heat_capacity, Double electrical_capacity,
-            Integer life_time, Double first_load, String source
+            String type, String reactorClass, Double burn_up,
+            Double efficiency_factor, Double enrichment, Double heatCapacity,
+            Double electricalCapacity, Integer lifeTime, Double firstLoad,
+            String source
     ) {
-        this.reactor_class = reactor_class;
-        this.burnup = burnup;
-        this.electrical_capacity = electrical_capacity;
+        this.reactorClass = reactorClass;
+        this.burn_up = burn_up;
+        this.electricalCapacity = electricalCapacity;
         this.enrichment = enrichment;
-        this.first_load = first_load;
+        this.firstLoad = firstLoad;
         this.efficiency_factor = efficiency_factor;
-        this.life_time = life_time;
-        this.heat_capacity = heat_capacity;
+        this.lifeTime = lifeTime;
+        this.heatCapacity = heatCapacity;
         this.source = source;
     }
 
     @Override
     public String toString() {
-        return reactor_class;
+        return reactorClass;
     }
     public Double getBurnUp() {
-        return burnup;
+        return burn_up;
     }
+
     public String getFullDescription() {
-        return "Reactor class: " + reactor_class + "\n"
-                + "Burnup: " + burnup + "\n"
-                + "KPD: " + efficiency_factor + "\n"
-                + "Enrichment: " + enrichment + "\n"
-                + "Heat capacity: " + heat_capacity + "\n"
-                + "Electrical capacity: " + electrical_capacity + "\n"
-                + "Life time:  " + life_time + "\n"
-                + "First load:  " + first_load + "\n\n"
-                + "Source: " + source;
+        return "Класс реактора " + reactorClass + "\n"
+                + "Выгорание " + burn_up + "\n"
+                + "КПД " + efficiency_factor + "\n"
+                + "Обогащение " + enrichment + "\n"
+                + "Теплоемкость " + heatCapacity + "\n"
+                + "Электрическая мощность " + electricalCapacity + "\n"
+                + "Продолжительность жизни " + lifeTime + "\n"
+                + "Первая загрузка " + firstLoad + "\n\n"
+                + "Ресурс: " + source;
     }
 }

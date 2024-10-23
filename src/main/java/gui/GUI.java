@@ -59,7 +59,7 @@ public class GUI extends JFrame {
     }
 
     private void setupFrame() {
-        setTitle("Laba 4");
+        setTitle("Лабораторная работа №4");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -67,11 +67,11 @@ public class GUI extends JFrame {
     }
 
     private void createUIComponents() {
-    JScrollPane scrollPane = new JScrollPane(reactorsTree);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    JPanel buttonPanel = createButtonPanel();
-    mainPanel.add(buttonPanel, BorderLayout.NORTH);
-    mainPanel.add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(reactorsTree);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JPanel buttonPanel = createButtonPanel();
+        mainPanel.add(buttonPanel, BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
     }
 
     private JPanel createButtonPanel() {
@@ -79,6 +79,7 @@ public class GUI extends JFrame {
         buttonPanel.add(importButton);
         buttonPanel.add(goCalculateButton);
         buttonPanel.add(exitButton);
+
         return buttonPanel;
     }
 
@@ -92,7 +93,6 @@ public class GUI extends JFrame {
                 }
             }
         });
-
         goCalculateButton.addActionListener(e -> showCalculatorDialog());
         exitButton.addActionListener(e -> System.exit(0));
     }
@@ -118,13 +118,13 @@ public class GUI extends JFrame {
         TreePath selectionPath = reactorsTree.getSelectionPath();
         if (selectionPath == null) return;
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
-
         if (selectedNode.getUserObject() instanceof Reactor reactor) {
             String title = "Reactor " + reactor.getName();
             String message = reactor.getFullDescription();
             JPanel panel = new JPanel(new BorderLayout());
             JTextArea textArea = new JTextArea(message);
             panel.add(textArea, BorderLayout.CENTER);
+
             JOptionPane.showMessageDialog(null, panel, title, JOptionPane.PLAIN_MESSAGE);
         }
     }
@@ -157,19 +157,16 @@ public class GUI extends JFrame {
         for (Map.Entry<String, List<Reactor>> entry : reactors.entrySet()) {
             String country = entry.getValue().get(0).getCountry();
             DefaultMutableTreeNode countryNode = countryNodes.get(country);
-
             if (countryNode == null) {
                 countryNode = new DefaultMutableTreeNode(country);
                 countryNodes.put(country, countryNode);
                 root.add(countryNode);
             }
-
             for (Reactor reactor : entry.getValue()) {
                 DefaultMutableTreeNode reactorNode = new DefaultMutableTreeNode(reactor);
                 countryNode.add(reactorNode);
             }
         }
-
         List<DefaultMutableTreeNode> sortedCountryNodes = new ArrayList<>(countryNodes.values());
         sortedCountryNodes.sort(Comparator.comparing(DefaultMutableTreeNode::toString));
         sortedCountryNodes.forEach(root::add);
